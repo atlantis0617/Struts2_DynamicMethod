@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+     
+    <!-- 只有感叹号动态调用方法时需设置strict-method-invocation="false" -->
+    <package name="dynamic" extends="struts-default" namespace="/" strict-method-invocation="false">
+        <!-- 默认，无execute方法，执行name="success"的result -->
+        <action name="search" class="org.struts.dynamicmethod.action.DynamicMethod">
+            <result>/search.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <!-- 指定method属性 -->
+        <action name="add" method="add" class="org.struts.dynamicmethod.action.DynamicMethod">
+            <result name="add">/add.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <!-- 感叹号方式 -->
+        <action name="modify" class="org.struts.dynamicmethod.action.DynamicMethod">
+            <result name="modify">/modify.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <!-- 通配符方式 -->
+        <action name="delete_*" method="{1}" class="org.struts.dynamicmethod.action.DynamicMethod">
+            <result name="delete">/{1}.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+    </package>
+     
+    <!-- 开启动态方法调用,只有使用感叹号动态调用方法时需要开启 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+     
+</struts>
